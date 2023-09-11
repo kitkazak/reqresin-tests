@@ -34,5 +34,12 @@ class Request():
                     self.response = requests.post(
                         self.url,
                         json=self.json)
+            case 'DELETE':
+                if len(self.json) == 0:
+                    self.response = requests.delete(self.url)
+                else:
+                    self.response = requests.delete(
+                        self.url,
+                        json=self.json)
             case _:
                 raise BaseException('No method provided')
