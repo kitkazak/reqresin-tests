@@ -20,7 +20,7 @@ def positive_test_data(request):
 negative_test_data_params = [
     ('one', 404),
     ('two', 404),
-    ('three', 404),
+    (22, 404),
 ]
 
 @pytest.fixture(params=negative_test_data_params)
