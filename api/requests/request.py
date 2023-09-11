@@ -21,21 +21,28 @@ class Request():
                 
         match self.method:
             case 'GET':
-                if len(self.json) == 0:
+                if self.json == None or len(self.json) == 0:
                     self.response = requests.get(self.url)
                 else:
                     self.response = requests.get(
                         self.url,
                         json=self.json)
             case 'POST':
-                if len(self.json) == 0:
+                if self.json == None or len(self.json) == 0:
                     self.response = requests.post(self.url)
                 else:
                     self.response = requests.post(
                         self.url,
                         json=self.json)
+            case 'PUT':
+                if self.json == None or len(self.json) == 0:
+                    self.response = requests.put(self.url)
+                else:
+                    self.response = requests.put(
+                        self.url,
+                        json=self.json)
             case 'DELETE':
-                if len(self.json) == 0:
+                if self.json == None or len(self.json) == 0:
                     self.response = requests.delete(self.url)
                 else:
                     self.response = requests.delete(
