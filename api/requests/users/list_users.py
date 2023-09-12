@@ -13,6 +13,6 @@ class ListUsersRequest(Request):
         self.url = f"{self.url}/users"
         self.method = 'GET'
         self.parameters = {
-            'page_id': self.page_id,
-            'per_page_id': self.per_page_id
+            'page': self.page_id,
+            'per_page': self.per_page_id
         }

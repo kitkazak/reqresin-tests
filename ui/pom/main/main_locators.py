@@ -27,3 +27,4 @@ class MainPageLocators:
 
     console_section = '//section[@id="console"]'
     url_span = '//span[@data-key="url"]'
+    output_response = '//pre[@data-key="output-response"]'

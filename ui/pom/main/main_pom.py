@@ -85,6 +85,10 @@ class MainPOM:
         self.url_span = driver.find_element(
             By.XPATH,
             MainPageLocators.url_span)
+        
+        self.output_response = driver.find_element(
+            By.XPATH,
+            MainPageLocators.output_response)
 
     def scroll_to_console_section(self):
         self.driver.execute_script(
