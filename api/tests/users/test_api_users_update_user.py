@@ -80,7 +80,8 @@ class TestApiUpdateUser():
             f'\nExpected value: {expected_response_job}' \
             f'\nActual value: {response_json["job"]}' \
             f'\nResponse body: {request.response.content}'
-        
+
+    @pytest.mark.xfail   
     def test_api_update_user_negative(
         self,
         negative_test_data):

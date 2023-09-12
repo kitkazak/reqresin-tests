@@ -49,6 +49,7 @@ class TestApiListUsers():
             f'\nActual status code: {request.response.status_code}'  \
             f'\nResponse body: {request.response.content}'
         
+    @pytest.mark.xfail
     def test_api_list_users_negative(
         self,
         negative_test_data

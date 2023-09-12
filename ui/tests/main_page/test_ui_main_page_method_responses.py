@@ -12,6 +12,7 @@ from api.requests.users.update_user import UpdateUserRequest
 from api.requests.users.delete_user import DeleteUserRequest
 from api.requests.register.register_user import RegisterUserRequest
 from api.requests.login.login_user import LoginUserRequest  
+from api.requests.users.delay import DelayRequest
 
 from ui.pom.main.main_pom import MainPOM
 
@@ -340,6 +341,29 @@ class TestUIMainPageMethodRespones():
         }
 
         request = LoginUserRequest(json=body)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response == response_json, \
+            'UI Output response and API Response json do not match'
+        
+        """
+        Delay
+        """
+
+        element = main_page.delay_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(4) # Ждем окончания дилея
+        output_response = json.loads(main_page.output_response.text)
+
+        # Delay Request
+
+        request = DelayRequest(delay=3)
         request.send()
 
         response_json = request.response.json()
