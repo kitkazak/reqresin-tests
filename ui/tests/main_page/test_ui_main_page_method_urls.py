@@ -1,7 +1,6 @@
 import pytest
 from selenium import webdriver
 import urllib3
-import time
 
 from ui.pom.main.main_pom import MainPOM
 
@@ -40,7 +39,7 @@ data_params = [
 def data(request):
     return request.param
 
-class TestUIMainPage():
+class TestUIMainPageMethodURLs():
 
     def test_method_buttons(
         self,
