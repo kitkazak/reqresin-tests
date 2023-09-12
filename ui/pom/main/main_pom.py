@@ -90,6 +90,10 @@ class MainPOM:
             By.XPATH,
             MainPageLocators.output_response)
 
+        self.response_code = driver.find_element(
+            By.XPATH,
+            MainPageLocators.response_code)
+
     def scroll_to_console_section(self):
         self.driver.execute_script(
             "arguments[0].scrollIntoView();", 

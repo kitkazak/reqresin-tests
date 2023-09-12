@@ -9,6 +9,9 @@ from api.requests.users.get_user import GetUserRequest
 from api.requests.resource.list_resources import ListResourcesRequest
 from api.requests.resource.get_resource import GetResourceRequest
 from api.requests.users.update_user import UpdateUserRequest
+from api.requests.users.delete_user import DeleteUserRequest
+from api.requests.register.register_user import RegisterUserRequest
+from api.requests.login.login_user import LoginUserRequest
 
 from ui.pom.main.main_pom import MainPOM
 
@@ -211,3 +214,80 @@ class TestUIMainPageMethodRespones():
             output_response['job'] == response_json['job'], \
             'UI Output response and API Response json do not match'
         
+        """
+        Delete user
+        """
+
+        element = main_page.delete_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_code = int(main_page.response_code.text)
+
+        # Delete user Request
+
+        request = DeleteUserRequest(user_id=2)
+        request.send()
+
+        response_code = request.response.status_code
+
+        assert output_code == response_code, \
+            'UI Output status code and API status code json do not match'
+        
+        """
+        Register user successsful
+        """
+
+        element = main_page.register_successful_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_response = json.loads(main_page.output_response.text)
+
+        # Register user successful Request
+
+        body = {
+            "email": "eve.holt@reqres.in",
+            "password": "pistol"
+        }
+
+        request = RegisterUserRequest(json=body)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response == response_json, \
+            'UI Output response and API Response json do not match'
+
+        """
+        Register user unsuccesssful
+        """
+
+        element = main_page.register_unsuccessful_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_response = json.loads(main_page.output_response.text)
+
+        # Register user unsuccessful Request
+
+        body = {
+            "email": "ydney@fife",
+        }
+
+        request = RegisterUserRequest(json=body)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response == response_json, \
+            'UI Output response and API Response json do not match'
