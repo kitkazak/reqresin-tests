@@ -33,6 +33,7 @@ data_params = [
     ('users', '/api/users?page=2'),
     ('users-single', '/api/users/2'),
     ('users-single-not-found', '/api/users/23'),
+    ('patch', '/api/users/2')
 ]
 
 @pytest.fixture(params=data_params)
@@ -55,6 +56,9 @@ class TestUIMainPage():
         main_page.scroll_to_console_section()
 
         element = main_page.get_method_button_by_data_id(data_id=data_id)
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
         element.click()
 
         url_span_text = main_page.get_url_span_text()
