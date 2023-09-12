@@ -7,6 +7,7 @@ from selenium import webdriver
 from api.requests.users.list_users import ListUsersRequest
 from api.requests.users.get_user import GetUserRequest
 from api.requests.resource.list_resources import ListResourcesRequest
+from api.requests.resource.get_resource import GetResourceRequest
 
 from ui.pom.main.main_pom import MainPOM
 
@@ -133,3 +134,51 @@ class TestUIMainPageMethodRespones():
 
         assert output_response == response_json, \
             'UI Output response and API Response json do not match'
+        
+        """
+        Get resource
+        """
+
+        element = main_page.get_resource_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_response = json.loads(main_page.output_response.text)
+
+        # Get resource Request
+
+        request = GetResourceRequest(resource_id=2)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response == response_json, \
+            'UI Output response and API Response json do not match'
+        
+        """
+        Get resource not found
+        """
+
+        element = main_page.get_resource_not_found_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_response = json.loads(main_page.output_response.text)
+
+        # Get resource not found Request
+
+        request = GetResourceRequest(resource_id=23)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response == response_json, \
+            'UI Output response and API Response json do not match'
+        
+        
