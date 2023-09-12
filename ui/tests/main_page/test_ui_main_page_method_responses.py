@@ -8,6 +8,7 @@ from api.requests.users.list_users import ListUsersRequest
 from api.requests.users.get_user import GetUserRequest
 from api.requests.resource.list_resources import ListResourcesRequest
 from api.requests.resource.get_resource import GetResourceRequest
+from api.requests.users.update_user import UpdateUserRequest
 
 from ui.pom.main.main_pom import MainPOM
 
@@ -181,4 +182,32 @@ class TestUIMainPageMethodRespones():
         assert output_response == response_json, \
             'UI Output response and API Response json do not match'
         
+        """
+        Update user
+        """
+
+        element = main_page.put_button
+        driver.execute_script(
+            "arguments[0].scrollIntoView();", 
+            element)
+        element.click()
+
+        time.sleep(0.5)
+        output_response = json.loads(main_page.output_response.text)
+
+        # Update user Request
+
+        body = {
+            "name": "morpheus",
+            "job": "zion resident"
+        }
+
+        request = UpdateUserRequest(user_id=2, json=body)
+        request.send()
+
+        response_json = request.response.json()
+
+        assert output_response['name'] == response_json['name'] and \
+            output_response['job'] == response_json['job'], \
+            'UI Output response and API Response json do not match'
         
