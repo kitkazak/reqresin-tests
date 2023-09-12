@@ -60,4 +60,4 @@ class TestUIMainPage():
         url_span_text = main_page.get_url_span_text()
 
         assert url_span_text == expected_url_span_text, \
-            'Expected and actual text do not match'
+            'Expected and actual texts do not match'
