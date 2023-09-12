@@ -37,6 +37,10 @@ class MainPOM:
         self.console_section = driver.find_element(
             By.XPATH,
             MainPageLocators.console_section)
+        
+        self.url_span = driver.find_element(
+            By.XPATH,
+            MainPageLocators.url_span)
 
     """
     Click method buttons
@@ -61,11 +65,27 @@ class MainPOM:
         self.get_resource_not_found_button.click()
 
     """
-    Scroll to console section
+    END Click methond buttons
     """
 
     def scroll_to_console_section(self):
         self.driver.execute_script(
             "arguments[0].scrollIntoView();", 
             self.console_section)
+        
+    def get_url_span_text(self):
+        return self.url_span.text
+    
+    def get_method_button_by_data_id(self, data_id: int):
+        element = None
+        
+        match data_id:
+            case 'users':
+                element = self.list_users_button
+            case 'users-single':
+                element = self.get_user_button
+            case 'users-single-not-found':
+                element = self.get_user_not_found_button
+            
+        return element
 

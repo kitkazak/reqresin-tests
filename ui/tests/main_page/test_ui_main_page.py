@@ -23,13 +23,41 @@ def driver_handler():
     yield driver
     teardown(driver=driver)
 
+"""
+Test data:
+    * Data-id of a method button
+    * Expected url span text
+"""
+
+data_params = [
+    ('users', '/api/users?page=2'),
+    ('users-single', '/api/users/2'),
+    ('users-single-not-found', '/api/users/23'),
+]
+
+@pytest.fixture(params=data_params)
+def data(request):
+    return request.param
+
 class TestUIMainPage():
 
-    def test_ui_main_page(
+    def test_method_buttons(
         self,
-        driver_handler):
+        driver_handler,
+        data):
         
         driver = driver_handler
         driver.get("https://reqres.in/")
 
-        time.sleep(10)
+        data_id, expected_url_span_text = data
+
+        main_page = MainPOM(driver=driver)
+        main_page.scroll_to_console_section()
+
+        element = main_page.get_method_button_by_data_id(data_id=data_id)
+        element.click()
+
+        url_span_text = main_page.get_url_span_text()
+
+        assert url_span_text == expected_url_span_text, \
+            'Expected and actual text do not match'

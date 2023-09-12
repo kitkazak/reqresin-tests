@@ -11,4 +11,9 @@ class MainPageLocators:
     get_resource_button = '//li[@data-id="unknown-single"]'
     get_resource_not_found_button = '//li[@data-id="unknown-single-not-found"]'
 
+    """
+    END Method buttons
+    """
+
     console_section = '//section[@id="console"]'
+    url_span = '//span[@data-key="url"]'
